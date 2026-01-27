@@ -11,21 +11,7 @@ export const styles = StyleSheet.create({
         justifyContent: "space-between",
         paddingTop: 90,
     },
-    logoContainer: {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: 10,
-    },
     logo: {
-        color: colors.yellow_200
-    },
-    logoTitle: {
-        fontSize: 50,
-        color: colors.yellow_200
-    },
-    logoSubtitle: {
-        fontSize: 14,
         color: colors.yellow_200
     },
     footer: {

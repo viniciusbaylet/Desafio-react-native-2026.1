@@ -1,3 +1,4 @@
+import { router } from "expo-router"
 import { createContext, PropsWithChildren, useState } from "react"
 
 type AuthState = {
@@ -13,10 +14,12 @@ export function AuthProvider({children}: PropsWithChildren) {
 
     function signIn() {
         setIsLoggedIn(true);
+        router.replace("/");
     }
 
     function signOut() {
         setIsLoggedIn(false);
+        router.replace("/login");
     }
 
     return (
