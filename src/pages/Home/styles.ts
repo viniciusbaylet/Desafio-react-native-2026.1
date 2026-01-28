@@ -64,6 +64,9 @@ export const styles = StyleSheet.create({
         color: colors.blue_900,
         fontWeight: "bold"
     },
+    flatList: {
+        paddingBottom: 8
+    },
     main3: {
         width: "100%",
         backgroundColor: colors.blue_900,

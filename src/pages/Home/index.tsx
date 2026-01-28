@@ -1,9 +1,10 @@
-import { ImageBackground, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, ImageBackground, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./styles";
 
 import Logo from "@/components/Logo";
 import Header from "@/components/Header";
 import Card from "@/components/Card";
+import { data } from "@/data/data";
 
 export default function HomePage() {
     return (
@@ -23,12 +24,19 @@ export default function HomePage() {
                         <View>
                             <Text style={styles.title}>Relógios em destaque</Text>
                         </View>
-                        <Card
-                            id="1"
-                            image={require("@/assets/images/backgroundImage.jpg")}
-                            title="Orient SolarTech"
-                            description="Opção tecnológica e elegante."
-                            price="1995,99"
+                        <FlatList
+                            data={data}
+                            renderItem={({ item }) =>
+                                <Card
+                                    id={item.id} image={item.image}
+                                    title={item.title}
+                                    description={item.description}
+                                    price={item.price}
+                                />
+                            }
+                            keyExtractor={(item) => item.id}
+                            horizontal
+                            style={styles.flatList}
                         />
                     </View>
                     <View style={styles.main3}>
@@ -38,32 +46,53 @@ export default function HomePage() {
                         <View style={styles.colectionContainer}>
                             <Text style={styles.textValues}>Sociais</Text>
                         </View>
-                        <Card
-                            id="1"
-                            image={require("@/assets/images/backgroundImage.jpg")}
-                            title="Orient SolarTech"
-                            description="Opção tecnológica e elegante."
-                            price="1995,99"
+                        <FlatList
+                            data={data}
+                            renderItem={({ item }) =>
+                                <Card
+                                    id={item.id} image={item.image}
+                                    title={item.title}
+                                    description={item.description}
+                                    price={item.price}
+                                />
+                            }
+                            keyExtractor={(item) => item.id}
+                            horizontal
+                            style={styles.flatList}
                         />
                         <View style={styles.colectionContainer}>
                             <Text style={styles.textValues}>Esportivos</Text>
                         </View>
-                        <Card
-                            id="1"
-                            image={require("@/assets/images/backgroundImage.jpg")}
-                            title="Orient SolarTech"
-                            description="Opção tecnológica e elegante."
-                            price="1995,99"
+                        <FlatList
+                            data={data}
+                            renderItem={({ item }) =>
+                                <Card
+                                    id={item.id} image={item.image}
+                                    title={item.title}
+                                    description={item.description}
+                                    price={item.price}
+                                />
+                            }
+                            keyExtractor={(item) => item.id}
+                            horizontal
+                            style={styles.flatList}
                         />
                         <View style={styles.colectionContainer}>
                             <Text style={styles.textValues}>Smartwatches</Text>
                         </View>
-                        <Card
-                            id="1"
-                            image={require("@/assets/images/backgroundImage.jpg")}
-                            title="Orient SolarTech"
-                            description="Opção tecnológica e elegante."
-                            price="1995,99"
+                        <FlatList
+                            data={data}
+                            renderItem={({ item }) =>
+                                <Card
+                                    id={item.id} image={item.image}
+                                    title={item.title}
+                                    description={item.description}
+                                    price={item.price}
+                                />
+                            }
+                            keyExtractor={(item) => item.id}
+                            horizontal
+                            style={styles.flatList}
                         />
                     </View>
                 </View>

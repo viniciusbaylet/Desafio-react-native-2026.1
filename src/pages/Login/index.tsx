@@ -17,8 +17,8 @@ export default function LoginPage() {
     function handleLogin() {
         if(!email.trim() || !senha.trim()){
             Alert.alert("Preencha os campos de email e senha para continuar.");
+            return;
         }
-
         signIn();
     }
 

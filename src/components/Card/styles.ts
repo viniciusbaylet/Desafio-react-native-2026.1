@@ -8,7 +8,8 @@ export const styles = StyleSheet.create({
             fontWeight: "bold"
         },
         card: {
-            width: "100%",
+            width: 360,
+            marginRight: 16,
             elevation: 6,
             borderBottomLeftRadius: 32,
             borderBottomRightRadius: 32,
