@@ -1,12 +1,11 @@
 import { SafeAreaView, TouchableOpacity, View } from "react-native";
 
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import Entypo from '@expo/vector-icons/Entypo';
+import { ArrowBigLeft, ClockFading, Menu } from 'lucide-react-native';
 
 import { styles } from "./styles";
 
 import { useRouter } from "expo-router";
+import Popup from "../Popup";
 
 
 type headerProps = {
@@ -22,19 +21,17 @@ export default function Header({ onBackPress }: headerProps) {
             <View style={styles.leftIconContainer}>
                 {onBackPress && (
                     <TouchableOpacity onPress={onBackPress}>
-                        <Entypo name="arrow-bold-left" size={40} color={styles.menuIcon.color} />
+                        <ArrowBigLeft size={40} color={styles.menuIcon.color} />
                     </TouchableOpacity>
                 )}
             </View>
             <View>
                 <TouchableOpacity onPress={() => router.push("/(protected)")}>
-                    <MaterialCommunityIcons name="progress-clock" size={60} color={styles.logo.color} />
+                    <ClockFading size={60} color={styles.logo.color} />
                 </TouchableOpacity>
             </View>
             <View>
-                <TouchableOpacity>
-                    <MaterialIcons name="menu" size={40} color={styles.menuIcon.color} />
-                </TouchableOpacity>
+                <Popup />
             </View>
         </SafeAreaView>
     )
