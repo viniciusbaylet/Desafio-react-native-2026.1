@@ -7,7 +7,8 @@ export const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        padding: 16
+        padding: 16,
+        backgroundColor: colors.blue_900
     },
     logo: {
         color: colors.yellow_200

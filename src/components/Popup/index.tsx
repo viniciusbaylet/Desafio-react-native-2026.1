@@ -3,12 +3,15 @@ import { useState } from "react";
 import { Modal, SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./styles";
 import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "expo-router";
 
 export default function Popup() {
 
     const [visible, setVisible] = useState(false);
 
     const { signOut } = useAuth();
+
+    const router = useRouter();
 
     return (
         <View>
@@ -23,7 +26,7 @@ export default function Popup() {
                 <SafeAreaView style={styles.safeArea}>
                     <TouchableOpacity onPress={() => setVisible(false)} style={styles.safeArea} />
                     <View style={styles.popup}>
-                        <TouchableOpacity style={styles.container}>
+                        <TouchableOpacity style={styles.container} onPress={() => router.push("/(protected)/contacts")}>
                             <Text style={styles.text}>Contatos</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.container}>
