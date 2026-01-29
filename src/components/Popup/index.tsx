@@ -3,15 +3,13 @@ import { useState } from "react";
 import { Modal, SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./styles";
 import { useAuth } from "@/hooks/useAuth";
-import { useRouter } from "expo-router";
+import { router } from "expo-router";
 
 export default function Popup() {
 
     const [visible, setVisible] = useState(false);
 
     const { signOut } = useAuth();
-
-    const router = useRouter();
 
     return (
         <View>

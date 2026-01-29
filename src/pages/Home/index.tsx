@@ -1,9 +1,8 @@
-import { FlatList, ImageBackground, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { ImageBackground, SafeAreaView, ScrollView, Text, View } from "react-native";
 import { styles } from "./styles";
 
 import Logo from "@/components/Logo";
 import Header from "@/components/Header";
-import Card from "@/components/Card";
 import { data } from "@/data/data";
 import Carousel from "@/components/Carousel";
 

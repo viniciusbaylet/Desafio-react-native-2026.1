@@ -1,7 +1,11 @@
 import { Linking, SafeAreaView, Text, TouchableOpacity, View } from "react-native";
+
 import { styles } from "./styles";
+
 import Header from "@/components/Header";
+
 import { router } from "expo-router";
+
 import { Facebook, Instagram, MapPin, Phone } from "lucide-react-native";
 
 export default function ContactsPage() {

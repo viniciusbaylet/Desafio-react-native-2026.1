@@ -4,7 +4,8 @@ import { ArrowBigLeft, ClockFading, Menu } from 'lucide-react-native';
 
 import { styles } from "./styles";
 
-import { useRouter } from "expo-router";
+import { router } from "expo-router";
+
 import Popup from "../Popup";
 
 
@@ -13,9 +14,6 @@ type headerProps = {
 }
 
 export default function Header({ onBackPress }: headerProps) {
-
-    const router = useRouter();
-
     return (
         <SafeAreaView style={styles.header}>
             <View style={styles.leftIconContainer}>
