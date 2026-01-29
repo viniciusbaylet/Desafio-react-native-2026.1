@@ -5,6 +5,7 @@ import Logo from "@/components/Logo";
 import Header from "@/components/Header";
 import Card from "@/components/Card";
 import { data } from "@/data/data";
+import Carousel from "@/components/Carousel";
 
 export default function HomePage() {
     return (
@@ -24,20 +25,7 @@ export default function HomePage() {
                         <View>
                             <Text style={styles.title}>Relógios em destaque</Text>
                         </View>
-                        <FlatList
-                            data={data}
-                            renderItem={({ item }) =>
-                                <Card
-                                    id={item.id} image={item.image}
-                                    title={item.title}
-                                    description={item.description}
-                                    price={item.price}
-                                />
-                            }
-                            keyExtractor={(item) => item.id}
-                            horizontal
-                            style={styles.flatList}
-                        />
+                        <Carousel data={data} />
                     </View>
                     <View style={styles.main3}>
                         <View>
@@ -46,54 +34,15 @@ export default function HomePage() {
                         <View style={styles.colectionContainer}>
                             <Text style={styles.textValues}>Sociais</Text>
                         </View>
-                        <FlatList
-                            data={data}
-                            renderItem={({ item }) =>
-                                <Card
-                                    id={item.id} image={item.image}
-                                    title={item.title}
-                                    description={item.description}
-                                    price={item.price}
-                                />
-                            }
-                            keyExtractor={(item) => item.id}
-                            horizontal
-                            style={styles.flatList}
-                        />
+                        <Carousel data={data} />
                         <View style={styles.colectionContainer}>
                             <Text style={styles.textValues}>Esportivos</Text>
                         </View>
-                        <FlatList
-                            data={data}
-                            renderItem={({ item }) =>
-                                <Card
-                                    id={item.id} image={item.image}
-                                    title={item.title}
-                                    description={item.description}
-                                    price={item.price}
-                                />
-                            }
-                            keyExtractor={(item) => item.id}
-                            horizontal
-                            style={styles.flatList}
-                        />
+                        <Carousel data={data} />
                         <View style={styles.colectionContainer}>
                             <Text style={styles.textValues}>Smartwatches</Text>
                         </View>
-                        <FlatList
-                            data={data}
-                            renderItem={({ item }) =>
-                                <Card
-                                    id={item.id} image={item.image}
-                                    title={item.title}
-                                    description={item.description}
-                                    price={item.price}
-                                />
-                            }
-                            keyExtractor={(item) => item.id}
-                            horizontal
-                            style={styles.flatList}
-                        />
+                        <Carousel data={data} />
                     </View>
                 </View>
                 <View style={styles.footer}>
