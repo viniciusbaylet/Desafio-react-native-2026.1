@@ -16,7 +16,7 @@ export default function ManagementPage() {
                 </View>
                 <Table data={data} />
             </View>
-            <FooterButton buttonText="Nova publicação" onPress={() => router.push("/(protected)/management/createPublication")} disabled={false} />
+            <FooterButton buttonText="Nova publicação" onPress={() => router.push("/management/createPublication")} disabled={false} />
         </SafeAreaView>
     )
 }

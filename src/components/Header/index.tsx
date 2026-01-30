@@ -24,7 +24,7 @@ export default function Header({ onBackPress }: headerProps) {
                 )}
             </View>
             <View>
-                <TouchableOpacity onPress={() => router.push("/(protected)")}>
+                <TouchableOpacity onPress={() => router.push("/")}>
                     <ClockFading size={60} color={styles.logo.color} />
                 </TouchableOpacity>
             </View>

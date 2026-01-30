@@ -18,7 +18,7 @@ export default function ContactsPage() {
 
     return (
         <SafeAreaView style={styles.safeArea}>
-            <Header onBackPress={() => router.push("/(protected)")} />
+            <Header onBackPress={() => router.push("/")} />
             <View style={styles.main}>
                 <View>
                     <Text style={styles.title}>Contate-nos</Text>

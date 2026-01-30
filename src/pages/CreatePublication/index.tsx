@@ -14,7 +14,7 @@ export default function CreatePublicationPage() {
 
     return (
         <SafeAreaView style={styles.safeArea}>
-            <Header onBackPress={() => router.push("/(protected)/management")} />
+            <Header onBackPress={() => router.push("/management")} />
             <View style={styles.main}>
                 <View>
                     <Text style={styles.title}>Nova publicação</Text>
