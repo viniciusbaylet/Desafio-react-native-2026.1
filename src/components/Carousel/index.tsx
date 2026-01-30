@@ -20,7 +20,8 @@ export default function Carousel({ data }: carouselProps) {
             data={data}
             renderItem={({ item }) =>
                 <Card
-                    id={item.id} image={item.image}
+                    id={item.id} 
+                    image={item.image}
                     title={item.title}
                     description={item.description}
                     price={item.price}

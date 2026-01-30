@@ -6,7 +6,9 @@ import Header from "@/components/Header";
 
 import { router } from "expo-router";
 
-import { Facebook, Instagram, MapPin, Phone } from "lucide-react-native";
+import { MapPin, Phone } from "lucide-react-native";
+
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 export default function ContactsPage() {
 
@@ -24,15 +26,15 @@ export default function ContactsPage() {
                 <View style={styles.column}>
                     <View style={styles.line}>
                         <TouchableOpacity style={styles.button} onPress={() => openLink("https://www.instagram.com/codeempresajunior/")}>
-                            <Instagram size={100} color={styles.icons.color} />
+                            <FontAwesome name="instagram" size={100} color={styles.icons.color} />
                         </TouchableOpacity >
                         <TouchableOpacity style={styles.button} onPress={() => openLink("https://www.facebook.com/codeempresajunior")}>
-                            <Facebook size={100} color={styles.icons.color} />
+                            <FontAwesome name="facebook" size={100} color={styles.icons.color} />
                         </TouchableOpacity>
                     </View>
                     <View style={styles.line}>
-                        <TouchableOpacity style={styles.button}>
-                            <Instagram size={100} color={styles.icons.color} />
+                        <TouchableOpacity style={styles.button} onPress={() => openLink("https://api.whatsapp.com/send/?phone=5532991519313&text&type=phone_number&app_absent=0")}>
+                            <FontAwesome name="whatsapp" size={100} color={styles.icons.color} />
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.button} onPress={() => openLink("https://api.whatsapp.com/send/?phone=5532991519313&text&type=phone_number&app_absent=0")}>
                             <Phone size={100} color={styles.icons.color} />

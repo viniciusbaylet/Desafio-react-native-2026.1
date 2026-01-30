@@ -27,7 +27,7 @@ export default function Popup() {
                         <TouchableOpacity style={styles.container} onPress={() => router.push("/(protected)/contacts")}>
                             <Text style={styles.text}>Contatos</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.container}>
+                        <TouchableOpacity style={styles.container} onPress={() => router.push("/(protected)/management")}>
                             <Text style={styles.text}>Gerenciar</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={[styles.container, {borderColor: styles.popup.backgroundColor}]} onPress={signOut}>
