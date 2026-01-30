@@ -12,7 +12,7 @@ export default function ProtectedLayout() {
         <Stack>
             <Stack.Screen name="index" options={{ headerShown: false }} />
             <Stack.Screen name="contacts" options={{ headerShown: false }} />
-            <Stack.Screen name="management/index" options={{ headerShown: false }} />
+            <Stack.Screen name="management" options={{ headerShown: false }} />
         </Stack>
     )
 }

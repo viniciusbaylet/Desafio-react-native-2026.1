@@ -7,11 +7,6 @@ import { data } from "@/data/data";
 import FooterButton from "@/components/FooterButton";
 
 export default function ManagementPage() {
-
-    function handleNewPublication() {
-        console.log("Você clicou em criar uma nova publicação");
-    }
-
     return (
         <SafeAreaView style={styles.safeArea}>
             <Header onBackPress={() => router.push("/(protected)")} />
@@ -21,7 +16,7 @@ export default function ManagementPage() {
                 </View>
                 <Table data={data} />
             </View>
-            <FooterButton buttonText="Nova publicação" onPress={handleNewPublication} disabled={false} />
+            <FooterButton buttonText="Nova publicação" onPress={() => router.push("/(protected)/management/createPublication")} disabled={false} />
         </SafeAreaView>
     )
 }
