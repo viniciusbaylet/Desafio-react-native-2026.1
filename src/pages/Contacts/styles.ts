@@ -29,7 +29,11 @@ export const styles = StyleSheet.create({
     button: {
         backgroundColor: colors.blue_700,
         padding: 16,
-        borderRadius: 16
+        borderRadius: 16,
+        width: 130,
+        height: 130,
+        alignItems: "center",
+        justifyContent: "center"
     },
     icons: {
         width: 100,

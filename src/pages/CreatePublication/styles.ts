@@ -15,10 +15,15 @@ export const styles = StyleSheet.create({
     main: {
         backgroundColor: colors.white,
         alignItems: "center",
+        justifyContent: "center",
         paddingTop: 30,
         paddingBottom: 30,
         gap: 20,
         flex: 1
+    },
+    previewImage: {
+        width: "100%",
+        height: 380
     },
     title: {
         fontSize: 28,
@@ -30,7 +35,12 @@ export const styles = StyleSheet.create({
         paddingVertical: 20,
         paddingHorizontal: 20,
         backgroundColor: colors.white,
-        gap: 20
+        gap: 20,
+
+        elevation: 6,
+        borderBottomLeftRadius: 32,
+        borderBottomRightRadius: 32,
+        overflow: "hidden",
     },
     container: {
         gap: 8
@@ -49,9 +59,12 @@ export const styles = StyleSheet.create({
     icon: {
         color: colors.white
     },
-    cameraContainer: {
+    buttonsContainer: {
+        flexDirection: "row",
         width: "100%",
-        alignItems: "center"
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 32
     },
     button: {
         backgroundColor: colors.blue_700,

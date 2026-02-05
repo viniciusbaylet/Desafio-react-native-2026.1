@@ -14,11 +14,15 @@ export const styles = StyleSheet.create({
         position: "absolute",
         top: 81,
     },
-    container: {
+    viewContainer: {
         alignItems: "center",
         justifyContent: "center",
         borderBottomWidth: 1,
         borderColor: colors.white,
+    },
+    container: {
+        alignItems: "center",
+        justifyContent: "center",
         padding: 16,
         flexDirection: "row",
         gap: 8

@@ -1,16 +1,53 @@
 import Header from "@/components/Header"
 import { router } from "expo-router"
-import { SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native"
+import { Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native"
 import { styles } from "./styles"
 import FooterButton from "@/components/FooterButton"
-import { Camera } from "lucide-react-native"
+import { Camera, Image as ImageIcon } from "lucide-react-native"
+import * as ImagePicker from 'expo-image-picker';
+import { useState } from "react"
 
 
 export default function CreatePublicationPage() {
 
+    const [imageUri, setImageUri] = useState<string | null>(null);
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
+    const [price, setPrice] = useState("");
+
     function handleCreatePublication() {
         console.log("Você criou uma nova publicação!");
     }
+
+    // Função para tirar uma foto com a câmera
+    async function takePicture() {
+        const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+        if (!permissionResult.granted) {
+            alert("Você recusou o acesso à câmera!");
+            return;
+        }
+        let result = await ImagePicker.launchCameraAsync({
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+        if (!result.canceled) {
+            setImageUri(result.assets[0].uri);
+        }
+    };
+
+    // Função para selecionar uma imagem da galeria
+    async function accessPhoneGalery() {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ["images"],
+            allowsEditing: true,
+            aspect: [4, 4],
+            quality: 1,
+        });
+        if (!result.canceled) {
+            setImageUri(result.assets[0].uri);
+        }
+    };
 
     return (
         <SafeAreaView style={styles.safeArea}>
@@ -22,9 +59,12 @@ export default function CreatePublicationPage() {
                 <ScrollView style={styles.scrollView}>
                     <View style={styles.content}>
 
-                        <View style={styles.cameraContainer}>
-                            <TouchableOpacity style={styles.button}>
+                        <View style={styles.buttonsContainer}>
+                            <TouchableOpacity style={styles.button} onPress={takePicture}>
                                 <Camera size={100} color={styles.icon.color} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.button} onPress={accessPhoneGalery}>
+                                <ImageIcon size={100} color={styles.icon.color} />
                             </TouchableOpacity>
                         </View>
 
@@ -34,31 +74,46 @@ export default function CreatePublicationPage() {
                                 style={styles.input}
                                 placeholder="Digite o nome do relógio..."
                                 placeholderTextColor={"#aaa9a9ff"}
+                                value={name}
+                                onChangeText={setName}
                             />
                         </View>
 
-                        <View style={styles.container}>
-                            <Text style={styles.formTitle}>Descrição</Text>
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Digite uma descrição do relógio..."
-                                placeholderTextColor={"#aaa9a9ff"}
-                            />
-                        </View>
+                        {imageUri && (
+                            <TouchableOpacity onPress={accessPhoneGalery}>
+                                <Image
+                                    source={{ uri: imageUri }}
+                                    style={styles.previewImage}
+                                />
+                            </TouchableOpacity>
+                        )}
 
-                        <View style={styles.container}>
-                            <Text style={styles.formTitle}>Preço</Text>
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Digite o preço do relógio..."
-                                placeholderTextColor={"#aaa9a9ff"}
-                            />
-                        </View>
-
+                            < View style={styles.container}>
+                        <Text style={styles.formTitle}>Descrição</Text>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Digite uma descrição do relógio..."
+                            placeholderTextColor={"#aaa9a9ff"}
+                            value={description}
+                            onChangeText={setDescription}
+                        />
                     </View>
-                </ScrollView>
+
+                    <View style={styles.container}>
+                        <Text style={styles.formTitle}>Preço</Text>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Digite o preço do relógio..."
+                            placeholderTextColor={"#aaa9a9ff"}
+                            value={price}
+                            onChangeText={setPrice}
+                        />
+                    </View>
+
             </View>
-            <FooterButton buttonText="Criar" onPress={handleCreatePublication} disabled={false} />
-        </SafeAreaView>
+        </ScrollView>
+            </View >
+        <FooterButton buttonText="Criar" onPress={handleCreatePublication} disabled={false} />
+        </SafeAreaView >
     )
 }

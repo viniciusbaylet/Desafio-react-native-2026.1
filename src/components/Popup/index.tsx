@@ -24,16 +24,22 @@ export default function Popup() {
                 <SafeAreaView style={styles.safeArea}>
                     <TouchableOpacity onPress={() => setVisible(false)} style={styles.safeArea} />
                     <View style={styles.popup}>
-                        <TouchableOpacity style={styles.container} onPress={() => router.push("/contacts")}>
-                            <Text style={styles.text}>Contatos</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.container} onPress={() => router.push("/management")}>
-                            <Text style={styles.text}>Gerenciar</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[styles.container, {borderColor: styles.popup.backgroundColor}]} onPress={signOut}>
-                            <LogOut size={30} color={styles.menuIcon.color} />
-                            <Text style={styles.text}>Logout</Text>
-                        </TouchableOpacity>
+                        <View style={styles.viewContainer}>
+                            <TouchableOpacity style={styles.container} onPress={() => router.push("/contacts")}>
+                                <Text style={styles.text}>Contatos</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.viewContainer}>
+                            <TouchableOpacity style={styles.container} onPress={() => router.push("/management")}>
+                                <Text style={styles.text}>Gerenciar</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.viewContainer}>
+                            <TouchableOpacity style={[styles.container, { borderColor: styles.popup.backgroundColor }]} onPress={signOut}>
+                                <LogOut size={30} color={styles.menuIcon.color} />
+                                <Text style={styles.text}>Logout</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </SafeAreaView>
             </Modal>
