@@ -2,6 +2,8 @@ import { Eye, Pencil, Trash } from "lucide-react-native";
 import { FlatList, ImageSourcePropType, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./styles";
 import { useState } from "react";
+import ModalExcluir from "../ModalExcluir";
+import ModalVisualizar from "../ModalVisualizar";
 
 type dataProps = {
     id: string;
@@ -20,12 +22,20 @@ const PAGE_SIZE = 8;
 export default function Table({ data }: tableProps) {
 
     const [page, setPage] = useState(1);
+    const [modalVisualizeVisible, setModalVisualizeVisible] = useState(false);
+    const [modalEditVisible, setModalEditVisible] = useState(false);
+    const [modalDeleteVisible, setModalDeleteVisible] = useState(false);
+    const [idPublicacao, setIdPublicacao] = useState<string | null>(null);
 
     const start = (page - 1) * PAGE_SIZE;
     const end = start + PAGE_SIZE;
 
     const paginated = data.slice(start, end);
     const totalPages = Math.ceil(data.length / PAGE_SIZE);
+
+    function excluirPublicacao(idPublicacao: string) {
+        console.log(`Usuário ${idPublicacao} excluído com sucesso!`);
+    }
 
     return (
         <View style={styles.table}>
@@ -52,13 +62,13 @@ export default function Table({ data }: tableProps) {
                             <Text style={styles.lineText}>R$ {item.price}</Text>
                         </View>
                         <View style={styles.actions}>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={() => { setModalVisualizeVisible(true); setIdPublicacao(item.id) }}>
                                 <Eye size={20} color={styles.icons.color} />
                             </TouchableOpacity>
                             <TouchableOpacity>
                                 <Pencil size={20} color={styles.icons.color} />
                             </TouchableOpacity>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={() => { setModalDeleteVisible(true); setIdPublicacao(item.id) }}>
                                 <Trash size={20} color={styles.icons.color} />
                             </TouchableOpacity>
                         </View>
@@ -76,6 +86,30 @@ export default function Table({ data }: tableProps) {
                     <Text style={styles.cabecalhoText}>Próxima ▶</Text>
                 </TouchableOpacity>
             </View>
+
+            <ModalVisualizar
+                id={idPublicacao}
+                visible={modalVisualizeVisible}
+                onCancel={() => {
+                    setModalVisualizeVisible(false);
+                    setIdPublicacao(null);
+                }}
+            />
+
+            <ModalExcluir
+                visible={modalDeleteVisible}
+                onConfirm={() => {
+                    if (!idPublicacao) return;
+                    excluirPublicacao(idPublicacao);
+                    setModalDeleteVisible(false);
+                    setIdPublicacao(null);
+                }}
+                onCancel={() => {
+                    setModalDeleteVisible(false);
+                    setIdPublicacao(null);
+                }}
+            />
+
         </View>
     )
 }
