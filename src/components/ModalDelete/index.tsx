@@ -7,7 +7,7 @@ type modalExcluirProps = {
     onCancel: () => void
 }
 
-export default function ModalExcluir({visible, onConfirm, onCancel}: modalExcluirProps) {
+export default function ModalDelete({visible, onConfirm, onCancel}: modalExcluirProps) {
     return (
         <Modal animationType="fade" transparent={true} visible={visible} >
             <TouchableOpacity style={styles.centeredView} activeOpacity={1}>

@@ -68,6 +68,15 @@ export default function CreatePublicationPage() {
                             </TouchableOpacity>
                         </View>
 
+                        {imageUri && (
+                            <TouchableOpacity onPress={accessPhoneGalery}>
+                                <Image
+                                    source={{ uri: imageUri }}
+                                    style={styles.previewImage}
+                                />
+                            </TouchableOpacity>
+                        )}
+
                         <View style={styles.container}>
                             <Text style={styles.formTitle}>Nome</Text>
                             <TextInput
@@ -79,41 +88,32 @@ export default function CreatePublicationPage() {
                             />
                         </View>
 
-                        {imageUri && (
-                            <TouchableOpacity onPress={accessPhoneGalery}>
-                                <Image
-                                    source={{ uri: imageUri }}
-                                    style={styles.previewImage}
-                                />
-                            </TouchableOpacity>
-                        )}
+                        < View style={styles.container}>
+                            <Text style={styles.formTitle}>Descrição</Text>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Digite uma descrição do relógio..."
+                                placeholderTextColor={"#aaa9a9ff"}
+                                value={description}
+                                onChangeText={setDescription}
+                            />
+                        </View>
 
-                            < View style={styles.container}>
-                        <Text style={styles.formTitle}>Descrição</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Digite uma descrição do relógio..."
-                            placeholderTextColor={"#aaa9a9ff"}
-                            value={description}
-                            onChangeText={setDescription}
-                        />
+                        <View style={styles.container}>
+                            <Text style={styles.formTitle}>Preço</Text>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Digite o preço do relógio..."
+                                placeholderTextColor={"#aaa9a9ff"}
+                                value={price}
+                                onChangeText={setPrice}
+                            />
+                        </View>
+
                     </View>
-
-                    <View style={styles.container}>
-                        <Text style={styles.formTitle}>Preço</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Digite o preço do relógio..."
-                            placeholderTextColor={"#aaa9a9ff"}
-                            value={price}
-                            onChangeText={setPrice}
-                        />
-                    </View>
-
-            </View>
-        </ScrollView>
+                </ScrollView>
             </View >
-        <FooterButton buttonText="Criar" onPress={handleCreatePublication} disabled={false} />
+            <FooterButton buttonText="Criar" onPress={handleCreatePublication} disabled={false} />
         </SafeAreaView >
     )
 }

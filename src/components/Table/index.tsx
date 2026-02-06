@@ -2,8 +2,9 @@ import { Eye, Pencil, Trash } from "lucide-react-native";
 import { FlatList, ImageSourcePropType, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./styles";
 import { useState } from "react";
-import ModalExcluir from "../ModalExcluir";
-import ModalVisualizar from "../ModalVisualizar";
+import ModalVisualize from "../ModalVisualize";
+import ModalEdit from "../ModalEdit";
+import ModalDelete from "../ModalDelete";
 
 type dataProps = {
     id: string;
@@ -25,7 +26,7 @@ export default function Table({ data }: tableProps) {
     const [modalVisualizeVisible, setModalVisualizeVisible] = useState(false);
     const [modalEditVisible, setModalEditVisible] = useState(false);
     const [modalDeleteVisible, setModalDeleteVisible] = useState(false);
-    const [idPublicacao, setIdPublicacao] = useState<string | null>(null);
+    const [idPublication, setIdPublication] = useState<string | null>(null);
 
     const start = (page - 1) * PAGE_SIZE;
     const end = start + PAGE_SIZE;
@@ -33,8 +34,12 @@ export default function Table({ data }: tableProps) {
     const paginated = data.slice(start, end);
     const totalPages = Math.ceil(data.length / PAGE_SIZE);
 
-    function excluirPublicacao(idPublicacao: string) {
-        console.log(`Usuário ${idPublicacao} excluído com sucesso!`);
+    function deletePublication(idPublication: string) {
+        console.log(`Publicação ${idPublication} excluída com sucesso!`);
+    }
+
+    function editPublication(idPublication: string) {
+        console.log(`Publicação ${idPublication} editada com sucesso!`);
     }
 
     return (
@@ -62,13 +67,13 @@ export default function Table({ data }: tableProps) {
                             <Text style={styles.lineText}>R$ {item.price}</Text>
                         </View>
                         <View style={styles.actions}>
-                            <TouchableOpacity onPress={() => { setModalVisualizeVisible(true); setIdPublicacao(item.id) }}>
+                            <TouchableOpacity onPress={() => { setModalVisualizeVisible(true); setIdPublication(item.id) }}>
                                 <Eye size={20} color={styles.icons.color} />
                             </TouchableOpacity>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={() => { setModalEditVisible(true); setIdPublication(item.id) }}>
                                 <Pencil size={20} color={styles.icons.color} />
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => { setModalDeleteVisible(true); setIdPublicacao(item.id) }}>
+                            <TouchableOpacity onPress={() => { setModalDeleteVisible(true); setIdPublication(item.id) }}>
                                 <Trash size={20} color={styles.icons.color} />
                             </TouchableOpacity>
                         </View>
@@ -87,26 +92,41 @@ export default function Table({ data }: tableProps) {
                 </TouchableOpacity>
             </View>
 
-            <ModalVisualizar
-                id={idPublicacao}
+            <ModalVisualize
+                id={idPublication}
                 visible={modalVisualizeVisible}
                 onCancel={() => {
                     setModalVisualizeVisible(false);
-                    setIdPublicacao(null);
+                    setIdPublication(null);
                 }}
             />
 
-            <ModalExcluir
-                visible={modalDeleteVisible}
+            <ModalEdit
+                id={idPublication}
+                visible={modalEditVisible}
                 onConfirm={() => {
-                    if (!idPublicacao) return;
-                    excluirPublicacao(idPublicacao);
-                    setModalDeleteVisible(false);
-                    setIdPublicacao(null);
+                    if (!idPublication) return;
+                    editPublication(idPublication);
+                    setModalEditVisible(false);
+                    setIdPublication(null);
                 }}
                 onCancel={() => {
                     setModalDeleteVisible(false);
-                    setIdPublicacao(null);
+                    setIdPublication(null);
+                }}
+            />
+
+            <ModalDelete
+                visible={modalDeleteVisible}
+                onConfirm={() => {
+                    if (!idPublication) return;
+                    deletePublication(idPublication);
+                    setModalDeleteVisible(false);
+                    setIdPublication(null);
+                }}
+                onCancel={() => {
+                    setModalDeleteVisible(false);
+                    setIdPublication(null);
                 }}
             />
 

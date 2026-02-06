@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
      mainBackground: {
         height: '9%',
-        backgroundColor: '#FFFFFF',
+        backgroundColor: colors.white,
     },
     button: {
         justifyContent: 'center',

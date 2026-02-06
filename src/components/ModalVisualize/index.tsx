@@ -10,7 +10,7 @@ type modalExcluirProps = {
     onCancel: () => void
 }
 
-export default function ModalVisualizar({ id, visible, onCancel }: modalExcluirProps) {
+export default function ModalVisualize({ id, visible, onCancel }: modalExcluirProps) {
     const publicationFiltered = data.find(publication => publication.id == id);
     if (!publicationFiltered) return;
 
