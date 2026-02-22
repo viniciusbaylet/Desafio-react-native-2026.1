@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
      mainBackground: {
-        height: '9%',
+        height: 70,
         backgroundColor: colors.white,
     },
     button: {
