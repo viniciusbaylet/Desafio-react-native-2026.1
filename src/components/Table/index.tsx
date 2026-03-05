@@ -8,7 +8,7 @@ import ModalDelete from "../ModalDelete";
 import api from "@/services/api";
 
 type publicationProps = {
-    id: number;
+    id: number | null;
     name: string;
     description: string;
     price: number;
@@ -81,7 +81,7 @@ export default function Table({ data }: tableProps) {
                         </View>
                     </View>
                 }
-                keyExtractor={(item) => item.id.toString()}
+                keyExtractor={(item) => item.id?.toString() ?? ""}
             />
 
             <View style={styles.pagination}>

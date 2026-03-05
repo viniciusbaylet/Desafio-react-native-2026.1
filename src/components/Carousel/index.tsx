@@ -3,7 +3,7 @@ import Card from "../Card"
 import { styles } from "./styles";
 
 type dataProps = {
-    id: number;
+    id: number | null;
     name: string;
     description: string;
     price: number;
@@ -31,7 +31,7 @@ export default function Carousel({ data }: carouselProps) {
                     price={item.price}
                 />
             }
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={(item) => item.id?.toString() ?? ""}
             horizontal
             showsHorizontalScrollIndicator={false}
             style={styles.flatList}

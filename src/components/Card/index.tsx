@@ -5,7 +5,7 @@ import { ImageSourcePropType } from "react-native";
 import { styles } from "./styles";
 
 type cardProps = {
-  id: number;
+  id: number | null;
   image: ImageSourcePropType;
   title: string;
   description: string;

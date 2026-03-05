@@ -1,13 +1,8 @@
 import { Linking, SafeAreaView, Text, TouchableOpacity, View } from "react-native";
-
 import { styles } from "./styles";
-
 import Header from "@/components/Header";
-
 import { router } from "expo-router";
-
 import { MapPin, Phone } from "lucide-react-native";
-
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 export default function ContactsPage() {

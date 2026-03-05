@@ -8,7 +8,7 @@ import api from "@/services/api";
 import { useEffect, useState } from "react";
 
 type publicationProps = {
-    id: number;
+    id: number | null;
     name: string;
     description: string;
     price: number;
