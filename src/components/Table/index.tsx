@@ -5,40 +5,44 @@ import { useState } from "react";
 import ModalVisualize from "../ModalVisualize";
 import ModalEdit from "../ModalEdit";
 import ModalDelete from "../ModalDelete";
+import api from "@/services/api";
 
-type dataProps = {
-    id: string;
-    image: ImageSourcePropType;
-    title: string;
+type publicationProps = {
+    id: number;
+    name: string;
     description: string;
-    price: string;
+    price: number;
+    category_id: number;
+    created_by: number;
+    status: string;
+    created_at: string;
+    updated_at: string;
+}
+
+type publicationsResponse = {
+    publications: publicationProps[];
+    current_page: number;
+    total: number;
+    per_page: number;
+    last_page: number;
 }
 
 type tableProps = {
-    data: dataProps[]
+    data: publicationsResponse;
 }
-
-const PAGE_SIZE = 8;
 
 export default function Table({ data }: tableProps) {
 
     const [page, setPage] = useState(1);
     const [modalType, setModalType] = useState<"visualize" | "edit" | "delete" | null>(null);
-    const [idPublication, setIdPublication] = useState<string | null>(null);
+    const [idPublication, setIdPublication] = useState<number | null>(null);
+    const [namePublication, setNamePublication] = useState<string>("");
+    const [descriptionPublication, setDescriptionPublication] = useState<string>("");
+    const [pricePublication, setPricePublication] = useState<number>(0);
+    const [imagePublication, setImagePublication] = useState<string>("");
 
-    const start = (page - 1) * PAGE_SIZE;
-    const end = start + PAGE_SIZE;
-
-    const paginated = data.slice(start, end);
-    const totalPages = Math.ceil(data.length / PAGE_SIZE);
-
-    function deletePublication(idPublication: string) {
-        console.log(`Publicação ${idPublication} excluída com sucesso!`);
-    }
-
-    function editPublication(idPublication: string) {
-        console.log(`Publicação ${idPublication} editada com sucesso!`);
-    }
+    const paginated = data.publications;
+    const totalPages = data.last_page;
 
     return (
         <View style={styles.table}>
@@ -59,16 +63,16 @@ export default function Table({ data }: tableProps) {
                 renderItem={({ item }) =>
                     <View style={styles.line}>
                         <View style={styles.lineProduct}>
-                            <Text style={styles.lineText}>{item.title}</Text>
+                            <Text style={styles.lineText}>{item.name}</Text>
                         </View>
                         <View style={styles.linePrice}>
                             <Text style={styles.lineText}>R$ {item.price}</Text>
                         </View>
                         <View style={styles.actions}>
-                            <TouchableOpacity onPress={() => { setModalType("visualize"); setIdPublication(item.id) }}>
+                            <TouchableOpacity onPress={() => { setModalType("visualize"); setIdPublication(item.id); setImagePublication("@/assets/images/backgroundImage.jpg"); setNamePublication(item.name); setDescriptionPublication(item.description); setPricePublication(item.price) }}>
                                 <Eye size={20} color={styles.icons.color} />
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => { setModalType("edit"); setIdPublication(item.id) }}>
+                            <TouchableOpacity onPress={() => { setModalType("edit"); setIdPublication(item.id); setImagePublication("@/assets/images/backgroundImage.jpg"); setNamePublication(item.name); setDescriptionPublication(item.description); setPricePublication(item.price) }}>
                                 <Pencil size={20} color={styles.icons.color} />
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => { setModalType("delete"); setIdPublication(item.id) }}>
@@ -77,7 +81,7 @@ export default function Table({ data }: tableProps) {
                         </View>
                     </View>
                 }
-                keyExtractor={(item) => item.id}
+                keyExtractor={(item) => item.id.toString()}
             />
 
             <View style={styles.pagination}>
@@ -92,6 +96,10 @@ export default function Table({ data }: tableProps) {
 
             <ModalVisualize
                 id={idPublication}
+                image={imagePublication}
+                name={namePublication}
+                description={descriptionPublication}
+                price={pricePublication}
                 visible={modalType === "visualize"}
                 onCancel={() => {
                     setModalType(null);
@@ -101,10 +109,13 @@ export default function Table({ data }: tableProps) {
 
             <ModalEdit
                 id={idPublication}
+                image={imagePublication}
+                description={descriptionPublication}
+                name={namePublication}
+                price={pricePublication.toString()}
                 visible={modalType === "edit"}
                 onConfirm={() => {
                     if (!idPublication) return;
-                    editPublication(idPublication);
                     setModalType(null);
                     setIdPublication(null);
                 }}
@@ -115,10 +126,9 @@ export default function Table({ data }: tableProps) {
             />
 
             <ModalDelete
+                id={idPublication}
                 visible={modalType === "delete"}
                 onConfirm={() => {
-                    if (!idPublication) return;
-                    deletePublication(idPublication);
                     setModalType(null);
                     setIdPublication(null);
                 }}

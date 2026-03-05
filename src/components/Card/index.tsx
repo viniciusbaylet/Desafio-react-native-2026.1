@@ -5,11 +5,11 @@ import { ImageSourcePropType } from "react-native";
 import { styles } from "./styles";
 
 type cardProps = {
-  id: string;
+  id: number;
   image: ImageSourcePropType;
   title: string;
   description: string;
-  price: string;
+  price: number;
 };
 
 

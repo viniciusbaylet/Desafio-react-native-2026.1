@@ -3,11 +3,15 @@ import Card from "../Card"
 import { styles } from "./styles";
 
 type dataProps = {
-    id: string;
-    image: ImageSourcePropType;
-    title: string;
+    id: number;
+    name: string;
     description: string;
-    price: string;
+    price: number;
+    category_id: number;
+    created_by: number;
+    status: string;
+    created_at: string;
+    updated_at: string;
 }
 
 type carouselProps = {
@@ -21,13 +25,13 @@ export default function Carousel({ data }: carouselProps) {
             renderItem={({ item }) =>
                 <Card
                     id={item.id} 
-                    image={item.image}
-                    title={item.title}
+                    image={require("@/assets/images/backgroundImage.jpg")}
+                    title={item.name}
                     description={item.description}
                     price={item.price}
                 />
             }
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.id.toString()}
             horizontal
             showsHorizontalScrollIndicator={false}
             style={styles.flatList}
