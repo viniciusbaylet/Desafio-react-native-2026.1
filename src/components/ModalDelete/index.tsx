@@ -13,7 +13,7 @@ export default function ModalDelete({id, visible, onConfirm, onCancel}: modalExc
 
     async function handleDeletePublication() {
         try {
-            api.delete(`/baylet/publications/${id}`);
+            await api.delete(`/baylet/publications/${id}`);
             onConfirm();
         } catch (error) {
             console.error("Erro ao excluir publicação: ", error);

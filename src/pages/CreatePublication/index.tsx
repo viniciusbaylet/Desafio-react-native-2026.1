@@ -6,6 +6,8 @@ import FooterButton from "@/components/FooterButton"
 import { Camera, Image as ImageIcon } from "lucide-react-native"
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from "react"
+import api from "@/services/api"
+import DropDownPicker from 'react-native-dropdown-picker';
 
 
 export default function CreatePublicationPage() {
@@ -14,9 +16,33 @@ export default function CreatePublicationPage() {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
+    const [caretoryId, setCategoryId] = useState("");
+    const [open, setOpen] = useState(false);
+    const [items, setItems] = useState([
+        { label: 'Social', value: '1' },
+        { label: 'Esportivo', value: '2' },
+        { label: 'Smartwatch', value: '3' }
+    ]);
 
-    function handleCreatePublication() {
-        console.log("Você criou uma nova publicação!");
+    async function handleCreatePublication() {
+        try { 
+            await api.post("/baylet/publications", {
+                name: name,
+                description: description,
+                price: price,
+                category_id: Number(caretoryId),
+                created_by: 1,
+                status: "ACTIVE"
+            });
+
+            setImageUri(null);
+            setName("");
+            setDescription("");
+            setPrice("");
+            setCategoryId("");
+        } catch (error) {
+            console.error("Erro ao criar uma nova publicação: ", error);
+        }
     }
 
     // Função para tirar uma foto com a câmera
@@ -109,6 +135,16 @@ export default function CreatePublicationPage() {
                                 onChangeText={setPrice}
                             />
                         </View>
+
+                        <DropDownPicker
+                            open={open}
+                            value={caretoryId}
+                            items={items}
+                            setOpen={setOpen}
+                            setValue={setCategoryId}
+                            setItems={setItems}
+                            placeholder="Selecione a categoria do relógio"
+                        />
 
                     </View>
                 </ScrollView>

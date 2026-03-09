@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import * as ImagePicker from 'expo-image-picker';
 import FooterButton from "../FooterButton";
 import api from "@/services/api";
+import DropDownPicker from 'react-native-dropdown-picker';
 
 type modalEditProps = {
     id: number | null
@@ -22,6 +23,13 @@ export default function ModalEdit({ id, image, name, description, price, visible
     const [nameEdit, setNameEdit] = useState<string>("");
     const [descriptionEdit, setDescriptionEdit] = useState<string>("");
     const [priceEdit, setPriceEdit] = useState<string>("");
+    const [caretoryIdEdit, setCategoryIdEdit] = useState("");
+    const [open, setOpen] = useState(false);
+    const [items, setItems] = useState([
+        { label: 'Social', value: '1' },
+        { label: 'Esportivo', value: '2' },
+        { label: 'Smartwatch', value: '3' }
+    ]);
 
     useEffect(() => {
         setNameEdit(name);
@@ -62,10 +70,13 @@ export default function ModalEdit({ id, image, name, description, price, visible
 
     async function handleEditPublication() {
         try {
-            api.put(`/baylet/publications/${id}`, {
+            await api.put(`/baylet/publications/${id}`, {
                 name: nameEdit,
                 description: descriptionEdit,
-                price: Number(priceEdit)
+                price: Number(priceEdit),
+                category_id: Number(caretoryIdEdit),
+                created_by: 1,
+                status: "ACTIVE"
             });
             onConfirm();
         } catch (error) {
@@ -128,6 +139,16 @@ export default function ModalEdit({ id, image, name, description, price, visible
                                 onChangeText={setPriceEdit}
                             />
                         </View>
+
+                        <DropDownPicker
+                            open={open}
+                            value={caretoryIdEdit}
+                            items={items}
+                            setOpen={setOpen}
+                            setValue={setCategoryIdEdit}
+                            setItems={setItems}
+                            placeholder="Selecione a categoria do relógio"
+                        />
                     </View>
                     <FooterButton buttonText="Editar" onPress={handleEditPublication} disabled={false} />
                 </View>

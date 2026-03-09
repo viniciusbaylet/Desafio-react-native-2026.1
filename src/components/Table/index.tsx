@@ -82,24 +82,21 @@ export default function Table({ data }: tableProps) {
                     </View>
                 }
                 keyExtractor={(item) => item.id?.toString() ?? ""}
+                ListFooterComponent={
+                    <View style={styles.pagination}>
+                        <TouchableOpacity disabled={page === 1} onPress={() => setPage(page - 1)} >
+                            <Text style={styles.cabecalhoText}>◀ Anterior</Text>
+                        </TouchableOpacity>
+                        <Text style={styles.cabecalhoText}>{page} / {totalPages}</Text>
+                        <TouchableOpacity disabled={page === totalPages} onPress={() => setPage(page + 1)}>
+                            <Text style={styles.cabecalhoText}>Próxima ▶</Text>
+                        </TouchableOpacity>
+                    </View>
+                }
             />
-
-            <View style={styles.pagination}>
-                <TouchableOpacity disabled={page === 1} onPress={() => setPage(page - 1)} >
-                    <Text style={styles.cabecalhoText}>◀ Anterior</Text>
-                </TouchableOpacity>
-                <Text style={styles.cabecalhoText}>{page} / {totalPages}</Text>
-                <TouchableOpacity disabled={page === totalPages} onPress={() => setPage(page + 1)}>
-                    <Text style={styles.cabecalhoText}>Próxima ▶</Text>
-                </TouchableOpacity>
-            </View>
 
             <ModalVisualize
                 id={idPublication}
-                image={imagePublication}
-                name={namePublication}
-                description={descriptionPublication}
-                price={pricePublication}
                 visible={modalType === "visualize"}
                 onCancel={() => {
                     setModalType(null);

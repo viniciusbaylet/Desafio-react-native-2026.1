@@ -5,7 +5,8 @@ import Logo from "@/components/Logo";
 import Header from "@/components/Header";
 import Carousel from "@/components/Carousel";
 import api from "@/services/api";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 
 type publicationProps = {
     id: number | null;
@@ -36,9 +37,11 @@ export default function HomePage() {
     const sportsWatchesArray = publications.filter(publication => publication.category_id === 2);
     const smartWatchesArray = publications.filter(publication => publication.category_id === 3);
 
-    useEffect(() => {
-        fetchPublications();
-    }, []);
+    useFocusEffect(
+        useCallback(() => {
+            fetchPublications();
+        }, [])
+    );
 
     return (
         <SafeAreaView style={styles.safeArea}>

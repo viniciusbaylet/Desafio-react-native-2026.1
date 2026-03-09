@@ -5,7 +5,8 @@ import { router } from "expo-router";
 import Table from "@/components/Table";
 import FooterButton from "@/components/FooterButton";
 import api from "@/services/api";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 
 type publicationProps = {
     id: number | null;
@@ -20,11 +21,11 @@ type publicationProps = {
 }
 
 type publicationsResponse = {
-  publications: publicationProps[];
-  current_page: number;
-  total: number;
-  per_page: number;
-  last_page: number;
+    publications: publicationProps[];
+    current_page: number;
+    total: number;
+    per_page: number;
+    last_page: number;
 }
 
 export default function ManagementPage() {
@@ -35,14 +36,17 @@ export default function ManagementPage() {
         try {
             const response = await api.get("/baylet/publications");
             setPublicationsWithPagination(response.data);
+            console.log("dados vindos do backend: ", response.data);
         } catch (error) {
             console.error("Erro ao buscar publicações: ", error);
         }
     }
 
-    useEffect(() => {
-        fetchPublicationsWithPagination();
-    }, []);
+    useFocusEffect(
+        useCallback(() => {
+            fetchPublicationsWithPagination();
+        }, [])
+    );
 
     return (
         <SafeAreaView style={styles.safeArea}>
@@ -51,7 +55,9 @@ export default function ManagementPage() {
                 <View>
                     <Text style={styles.title}>Gerenciar relógios</Text>
                 </View>
-                <Table data={publicationsWithPagination as publicationsResponse} />
+                {publicationsWithPagination && (
+                    <Table data={publicationsWithPagination} />
+                )}
             </View>
             <FooterButton buttonText="Nova publicação" onPress={() => router.push("/management/createPublication")} disabled={false} />
         </SafeAreaView>
