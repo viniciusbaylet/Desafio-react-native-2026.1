@@ -9,15 +9,17 @@ import { useCallback, useEffect, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 
 type publicationProps = {
-    id: number | null;
-    name: string;
-    description: string;
-    price: number;
-    category_id: number;
-    created_by: number;
-    status: string;
-    created_at: string;
-    updated_at: string;
+   id: number
+    name: string
+    description: string
+    price: number
+    category_id: number
+    created_by: number
+    status: string
+    created_at: string
+    updated_at: string
+
+    image: string
 }
 
 type publicationsResponse = {
@@ -56,7 +58,7 @@ export default function ManagementPage() {
                     <Text style={styles.title}>Gerenciar relógios</Text>
                 </View>
                 {publicationsWithPagination && (
-                    <Table data={publicationsWithPagination} />
+                    <Table data={publicationsWithPagination}  refreshPublications={fetchPublicationsWithPagination} />
                 )}
             </View>
             <FooterButton buttonText="Nova publicação" onPress={() => router.push("/management/createPublication")} disabled={false} />

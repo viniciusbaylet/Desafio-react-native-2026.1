@@ -5,10 +5,9 @@ import { useState } from "react";
 import ModalVisualize from "../ModalVisualize";
 import ModalEdit from "../ModalEdit";
 import ModalDelete from "../ModalDelete";
-import api from "@/services/api";
 
 type publicationProps = {
-    id: number | null;
+    id: number;
     name: string;
     description: string;
     price: number;
@@ -17,6 +16,7 @@ type publicationProps = {
     status: string;
     created_at: string;
     updated_at: string;
+    image: string;
 }
 
 type publicationsResponse = {
@@ -29,17 +29,15 @@ type publicationsResponse = {
 
 type tableProps = {
     data: publicationsResponse;
+    refreshPublications: () => void;
 }
 
-export default function Table({ data }: tableProps) {
+export default function Table({ data, refreshPublications }: tableProps) {
 
     const [page, setPage] = useState(1);
     const [modalType, setModalType] = useState<"visualize" | "edit" | "delete" | null>(null);
     const [idPublication, setIdPublication] = useState<number | null>(null);
-    const [namePublication, setNamePublication] = useState<string>("");
-    const [descriptionPublication, setDescriptionPublication] = useState<string>("");
-    const [pricePublication, setPricePublication] = useState<number>(0);
-    const [imagePublication, setImagePublication] = useState<string>("");
+    const [selectedPublication, setSelectedPublication] = useState<publicationProps | null>(null);
 
     const paginated = data.publications;
     const totalPages = data.last_page;
@@ -69,10 +67,10 @@ export default function Table({ data }: tableProps) {
                             <Text style={styles.lineText}>R$ {item.price}</Text>
                         </View>
                         <View style={styles.actions}>
-                            <TouchableOpacity onPress={() => { setModalType("visualize"); setIdPublication(item.id); setImagePublication("@/assets/images/backgroundImage.jpg"); setNamePublication(item.name); setDescriptionPublication(item.description); setPricePublication(item.price) }}>
+                            <TouchableOpacity onPress={() => { setModalType("visualize"); setSelectedPublication(item) }}>
                                 <Eye size={20} color={styles.icons.color} />
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => { setModalType("edit"); setIdPublication(item.id); setImagePublication("@/assets/images/backgroundImage.jpg"); setNamePublication(item.name); setDescriptionPublication(item.description); setPricePublication(item.price) }}>
+                            <TouchableOpacity onPress={() => { setModalType("edit"); setSelectedPublication(item) }}>
                                 <Pencil size={20} color={styles.icons.color} />
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => { setModalType("delete"); setIdPublication(item.id) }}>
@@ -96,7 +94,7 @@ export default function Table({ data }: tableProps) {
             />
 
             <ModalVisualize
-                id={idPublication}
+                publication={selectedPublication}
                 visible={modalType === "visualize"}
                 onCancel={() => {
                     setModalType(null);
@@ -105,16 +103,12 @@ export default function Table({ data }: tableProps) {
             />
 
             <ModalEdit
-                id={idPublication}
-                image={imagePublication}
-                description={descriptionPublication}
-                name={namePublication}
-                price={pricePublication.toString()}
+                publication={selectedPublication}
                 visible={modalType === "edit"}
                 onConfirm={() => {
-                    if (!idPublication) return;
                     setModalType(null);
                     setIdPublication(null);
+                    refreshPublications();
                 }}
                 onCancel={() => {
                     setModalType(null);
@@ -128,6 +122,7 @@ export default function Table({ data }: tableProps) {
                 onConfirm={() => {
                     setModalType(null);
                     setIdPublication(null);
+                    refreshPublications();
                 }}
                 onCancel={() => {
                     setModalType(null);
