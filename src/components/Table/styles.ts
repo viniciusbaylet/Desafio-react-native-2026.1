@@ -58,10 +58,4 @@ export const styles = StyleSheet.create({
     icons: {
         color: colors.blue_900
     },
-    pagination: {
-        flexDirection: "row",
-        justifyContent: "center",
-        gap: 10,
-        padding: 20 
-    },
 })

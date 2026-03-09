@@ -34,14 +34,12 @@ type tableProps = {
 
 export default function Table({ data, refreshPublications }: tableProps) {
 
-    const [page, setPage] = useState(1);
     const [modalType, setModalType] = useState<"visualize" | "edit" | "delete" | null>(null);
     const [idPublication, setIdPublication] = useState<number | null>(null);
     const [selectedPublication, setSelectedPublication] = useState<publicationProps | null>(null);
 
     const paginated = data.publications;
-    const totalPages = data.last_page;
-
+   
     return (
         <View style={styles.table}>
             <View style={styles.cabecalho}>
@@ -80,17 +78,6 @@ export default function Table({ data, refreshPublications }: tableProps) {
                     </View>
                 }
                 keyExtractor={(item) => item.id?.toString() ?? ""}
-                ListFooterComponent={
-                    <View style={styles.pagination}>
-                        <TouchableOpacity disabled={page === 1} onPress={() => setPage(page - 1)} >
-                            <Text style={styles.cabecalhoText}>◀ Anterior</Text>
-                        </TouchableOpacity>
-                        <Text style={styles.cabecalhoText}>{page} / {totalPages}</Text>
-                        <TouchableOpacity disabled={page === totalPages} onPress={() => setPage(page + 1)}>
-                            <Text style={styles.cabecalhoText}>Próxima ▶</Text>
-                        </TouchableOpacity>
-                    </View>
-                }
             />
 
             <ModalVisualize

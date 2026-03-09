@@ -1,4 +1,4 @@
-import { SafeAreaView, Text, View } from "react-native";
+import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./styles";
 import Header from "@/components/Header";
 import { router } from "expo-router";
@@ -9,7 +9,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 
 type publicationProps = {
-   id: number
+    id: number
     name: string
     description: string
     price: number
@@ -32,23 +32,22 @@ type publicationsResponse = {
 
 export default function ManagementPage() {
 
+    const [page, setPage] = useState(1);
     const [publicationsWithPagination, setPublicationsWithPagination] = useState<publicationsResponse | null>(null);
+    const totalPages = publicationsWithPagination?.last_page;
 
-    async function fetchPublicationsWithPagination() {
+    async function fetchPublicationsWithPagination(pageNumber = 1) {
         try {
-            const response = await api.get("/baylet/publications");
+            const response = await api.get(`/baylet/publications?page=${pageNumber}`);
             setPublicationsWithPagination(response.data);
-            console.log("dados vindos do backend: ", response.data);
         } catch (error) {
             console.error("Erro ao buscar publicações: ", error);
         }
     }
 
-    useFocusEffect(
-        useCallback(() => {
-            fetchPublicationsWithPagination();
-        }, [])
-    );
+    useEffect(() => {
+        fetchPublicationsWithPagination(page);
+    }, [page]);
 
     return (
         <SafeAreaView style={styles.safeArea}>
@@ -58,7 +57,19 @@ export default function ManagementPage() {
                     <Text style={styles.title}>Gerenciar relógios</Text>
                 </View>
                 {publicationsWithPagination && (
-                    <Table data={publicationsWithPagination}  refreshPublications={fetchPublicationsWithPagination} />
+                    <>
+                        <Table data={publicationsWithPagination} refreshPublications={() => fetchPublicationsWithPagination(page)} />
+
+                        <View style={styles.pagination}>
+                            <TouchableOpacity disabled={page === 1} onPress={() => setPage(page - 1)} >
+                                <Text style={styles.cabecalhoText}>◀ Anterior</Text>
+                            </TouchableOpacity>
+                            <Text style={styles.cabecalhoText}>{page} / {totalPages}</Text>
+                            <TouchableOpacity disabled={page === totalPages} onPress={() => setPage(page + 1)}>
+                                <Text style={styles.cabecalhoText}>Próxima ▶</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </>
                 )}
             </View>
             <FooterButton buttonText="Nova publicação" onPress={() => router.push("/management/createPublication")} disabled={false} />

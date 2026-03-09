@@ -57,7 +57,7 @@ export const styles = StyleSheet.create({
         paddingBottom: 40,
         gap: 16,
         alignItems: "center",
-        height: 770
+        minHeight: 770
     },
     title: {
         fontSize: 28,

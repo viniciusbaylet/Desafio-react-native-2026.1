@@ -18,8 +18,8 @@ export default function Card({id, image, title, description, price}: cardProps) 
         <View style={styles.card}>
             <ImageBackground source={image} style={styles.cardImage} />
             <View style={styles.cardContent}>
-                <Text style={styles.title}>{title}</Text>
-                <Text style={styles.description}>{description}</Text>
+                <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">{title}</Text>
+                <Text style={styles.description} numberOfLines={4} ellipsizeMode="tail">{description}</Text>
                 <Text style={styles.title}>R${price}</Text>
                 <TouchableOpacity style={styles.button}>
                     <Text style={styles.buttonText}>Comprar</Text>
