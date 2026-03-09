@@ -39,7 +39,7 @@ export default function Table({ data, refreshPublications }: tableProps) {
     const [selectedPublication, setSelectedPublication] = useState<publicationProps | null>(null);
 
     const paginated = data.publications;
-   
+
     return (
         <View style={styles.table}>
             <View style={styles.cabecalho}>
@@ -78,6 +78,9 @@ export default function Table({ data, refreshPublications }: tableProps) {
                     </View>
                 }
                 keyExtractor={(item) => item.id?.toString() ?? ""}
+                initialNumToRender={10}
+                maxToRenderPerBatch={10}
+                windowSize={5}
             />
 
             <ModalVisualize
